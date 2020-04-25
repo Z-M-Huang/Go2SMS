@@ -52,6 +52,9 @@ func (c *SMSClient) SendMessage(phoneNumber, message string) (uint, error) {
 	if err != nil {
 		return 0, errors.New("Failed to unmarshal response. " + err.Error())
 	}
+	if resp.StatusCode != 0 {
+		return 0, errors.New(resp.Message)
+	}
 	return resp.ID, nil
 }
 
